@@ -193,7 +193,7 @@ void LdsLidar::LidarSetRmcSyncTimeCb(livox_status status, \
 }
 
 /** Callback function of changing of device state. */
-void LdsLidar::OnDeviceChange(const DeviceInfo *info, DeviceEvent type) {
+void LdsLidar::OnDeviceChange(const LivoxDeviceInfo *info, DeviceEvent type) {
   if (info == nullptr) {
     return;
   }

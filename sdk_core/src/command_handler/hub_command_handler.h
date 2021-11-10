@@ -34,14 +34,14 @@ class HubCommandHandlerImpl : public CommandHandlerImpl {
   HubCommandHandlerImpl(CommandHandler *handler, std::weak_ptr<IOLoop> loop)
       : CommandHandlerImpl(handler), loop_(loop), is_valid_(false) {}
   void Uninit();
-  bool AddDevice(const DeviceInfo &info);
+  bool AddDevice(const LivoxDeviceInfo &info);
   bool RemoveDevice(uint8_t handle);
   livox_status SendCommand(uint8_t handle, const Command &command);
 
  private:
   std::weak_ptr<IOLoop> loop_;
   bool is_valid_;
-  DeviceInfo hub_info_;
+  LivoxDeviceInfo hub_info_;
   std::unique_ptr<CommandChannel> channel_;
 };
 }  // namespace livox

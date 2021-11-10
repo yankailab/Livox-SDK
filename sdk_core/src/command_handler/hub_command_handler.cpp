@@ -34,7 +34,7 @@ void HubCommandHandlerImpl::Uninit() {
   is_valid_ = false;
 }
 
-bool HubCommandHandlerImpl::AddDevice(const DeviceInfo &info) {
+bool HubCommandHandlerImpl::AddDevice(const LivoxDeviceInfo &info) {
   if (is_valid_) {
     return false;
   }

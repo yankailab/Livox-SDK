@@ -65,7 +65,7 @@ typedef struct {
 typedef struct {
   uint8_t handle;
   LidarConnectState connect_state;
-  DeviceInfo info;
+  LivoxDeviceInfo info;
   UserConfig config;
 } LidarDevice;
 
@@ -92,7 +92,7 @@ class LdsHub {
   static void OnHubDataCb(uint8_t hub_handle, LivoxEthPacket *data,\
                            uint32_t data_num, void *client_data);
   static void OnDeviceBroadcast(const BroadcastDeviceInfo *info);
-  static void OnDeviceInfoChange(const DeviceInfo *info, DeviceEvent type);
+  static void OnDeviceInfoChange(const LivoxDeviceInfo *info, DeviceEvent type);
   static void StartSampleCb(livox_status status, uint8_t handle, uint8_t response, void *clent_data);
   static void StopSampleCb(livox_status status, uint8_t handle, uint8_t response, void *clent_data);
   static void HubQueryLidarInfoCb(livox_status status, uint8_t handle, \

@@ -105,7 +105,7 @@ void OnGetLidarUnitsExtrinsicParameter(livox_status status, uint8_t handle, HubG
         strncpy((char *)lidar_info.lidar_broadcast_code, temp.broadcast_code, kBroadcastCodeSize);
         strncpy((char *)lidar_info.hub_broadcast_code, broadcast_code_list[0].c_str(), kBroadcastCodeSize);
 
-        std::unique_ptr<DeviceInfo[]> device_list(new DeviceInfo[kMaxLidarCount]);
+        std::unique_ptr<LivoxDeviceInfo[]> device_list(new LivoxDeviceInfo[kMaxLidarCount]);
         std::unique_ptr<uint8_t> size(new uint8_t(kMaxLidarCount));
         GetConnectedDevices(device_list.get(), size.get());
         for (int j = 0; j < kMaxLidarCount; j++) {
@@ -169,7 +169,7 @@ void HubDeviceDisconnect() {
 
 void HubDeviceConnectionChange() {
   HubDeviceDisconnect();
-  DeviceInfo *_devices = (DeviceInfo *) malloc(sizeof(DeviceInfo) * kMaxLidarCount);
+  LivoxDeviceInfo *_devices = (LivoxDeviceInfo *) malloc(sizeof(LivoxDeviceInfo) * kMaxLidarCount);
   uint8_t count = kMaxLidarCount;
   livox_status status = GetConnectedDevices(_devices, &count);
   if (status == kStatusSuccess) {
@@ -189,13 +189,13 @@ void HubDeviceConnectionChange() {
   HubQueryLidarInformation(OnHubLidarInfo, NULL);
 }
 
-void HubDeviceStateChange(const DeviceInfo *info) {
+void HubDeviceStateChange(const LivoxDeviceInfo *info) {
   devices[info->handle].info = *info;
 }
 
 
 /** Callback function of changing of device state. */
-void OnDeviceInfoChange(const DeviceInfo *info, DeviceEvent type) {
+void OnDeviceInfoChange(const LivoxDeviceInfo *info, DeviceEvent type) {
   if (info == nullptr) {
     return;
   }

@@ -63,7 +63,7 @@ void LidarDataHandlerImpl::Uninit() {
   devices_.clear();
 }
 
-bool LidarDataHandlerImpl::AddDevice(const DeviceInfo &info) {
+bool LidarDataHandlerImpl::AddDevice(const LivoxDeviceInfo &info) {
   socket_t sock = util::CreateSocket(info.data_port);
 
   std::shared_ptr<IOThread> thread = std::make_shared<IOThread>();

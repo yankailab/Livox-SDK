@@ -63,7 +63,7 @@ void DeviceManager::Uninit() {
   }
 }
 
-bool DeviceManager::AddDevice(const DeviceInfo &device) {
+bool DeviceManager::AddDevice(const LivoxDeviceInfo &device) {
   if (device_mode_ == kDeviceModeNone) {
     if (IsHub(device.type)) {
       device_mode_ = kDeviceModeHub;
@@ -103,7 +103,7 @@ void DeviceManager::BroadcastDevices(const BroadcastDeviceInfo *info) {
   }
 }
 
-void DeviceManager::UpdateDevices(const DeviceInfo &device, DeviceEvent type) {
+void DeviceManager::UpdateDevices(const LivoxDeviceInfo &device, DeviceEvent type) {
   if (device_mode_ == kDeviceModeLidar && type == kEventConnect) {
      command_handler().SendCommand(device.handle,
                                   kCommandSetGeneral,
@@ -207,7 +207,7 @@ void DeviceManager::QueryDeviceInformationCallback(livox_status status, uint8_t 
   }
 }
 
-void DeviceManager::GetConnectedDevices(vector<DeviceInfo> &devices) {
+void DeviceManager::GetConnectedDevices(vector<LivoxDeviceInfo> &devices) {
   lock_guard<mutex> lock(mutex_);
   for (DeviceContainer::iterator ite = devices_.begin(); ite != devices_.end(); ++ite) {
     if (ite->connected == true) {
@@ -243,7 +243,7 @@ bool DeviceManager::AddListeningDevice(const string &broadcast_code, DeviceMode 
   return false;
 }
 
-bool DeviceManager::FindDevice(uint8_t handle, DeviceInfo &info) {
+bool DeviceManager::FindDevice(uint8_t handle, LivoxDeviceInfo &info) {
   lock_guard<mutex> lock(mutex_);
   if (handle >= devices_.size()) {
     return false;
@@ -252,7 +252,7 @@ bool DeviceManager::FindDevice(uint8_t handle, DeviceInfo &info) {
   return true;
 }
 
-bool DeviceManager::FindDevice(const string &broadcast_code, DeviceInfo &info) {
+bool DeviceManager::FindDevice(const string &broadcast_code, LivoxDeviceInfo &info) {
   lock_guard<mutex> lock(mutex_);
   for (DeviceContainer::iterator ite = devices_.begin(); ite != devices_.end(); ++ite) {
     if (ite->info.broadcast_code == broadcast_code) {
@@ -276,7 +276,7 @@ void DeviceManager::UpdateDeviceState(uint8_t handle, const HeartbeatResponse &r
     return;
   }
   bool update = false;
-  DeviceInfo &info = devices_[handle].info;
+  LivoxDeviceInfo &info = devices_[handle].info;
   if (info.state != response.state) {
     LOG_INFO(" Update State to {}, device connect {}", (uint16_t)response.state, devices_[handle].connected);
     info.state = static_cast<LidarState>(response.state);
@@ -309,7 +309,7 @@ void DeviceManager::UpdateDeviceState(uint8_t handle, const HeartbeatResponse &r
 }
 
 bool DeviceManager::IsLidarMid40(uint8_t handle) {
-  DeviceInfo lidar_info;
+  LivoxDeviceInfo lidar_info;
   bool found = device_manager().FindDevice(handle, lidar_info);
   if ( found && lidar_info.type == kDeviceTypeLidarMid40) {
     return true;
@@ -318,7 +318,7 @@ bool DeviceManager::IsLidarMid40(uint8_t handle) {
 }
 
 bool DeviceManager::IsLidarMid70(uint8_t handle) {
-  DeviceInfo lidar_info;
+  LivoxDeviceInfo lidar_info;
   bool found = device_manager().FindDevice(handle, lidar_info);
   if ( found && lidar_info.type == kDeviceTypeLidarMid70) {
     return true;
@@ -327,7 +327,7 @@ bool DeviceManager::IsLidarMid70(uint8_t handle) {
 }
 
 bool DeviceManager::IsLidarAvia(uint8_t handle) {
-  DeviceInfo lidar_info;
+  LivoxDeviceInfo lidar_info;
   bool found = device_manager().FindDevice(handle, lidar_info);
   if ( found && lidar_info.type == kDeviceTypeLidarAvia) {
     return true;
@@ -336,7 +336,7 @@ bool DeviceManager::IsLidarAvia(uint8_t handle) {
 }
 
 bool DeviceManager::IsLidarTele(uint8_t handle) {
-  DeviceInfo lidar_info;
+  LivoxDeviceInfo lidar_info;
   bool found = device_manager().FindDevice(handle, lidar_info);
   if ( found && lidar_info.type == kDeviceTypeLidarTele) {
     return true;
@@ -358,7 +358,7 @@ DeviceManager &device_manager() {
   return lidar_manager;
 }
 
-void DeviceFound(const DeviceInfo &lidar_data) {
+void DeviceFound(const LivoxDeviceInfo &lidar_data) {
   device_manager().AddDevice(lidar_data);
   command_handler().AddDevice(lidar_data);
   data_handler().AddDevice(lidar_data);
@@ -370,7 +370,7 @@ void DeviceFound(const DeviceInfo &lidar_data) {
 }
 
 void DeviceRemove(uint8_t handle, DeviceEvent device_event) {
-  DeviceInfo info;
+  LivoxDeviceInfo info;
   bool found = device_manager().FindDevice(handle, info);
   device_manager().RemoveDevice(handle);
   command_handler().RemoveDevice(handle);

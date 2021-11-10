@@ -57,7 +57,7 @@ void HubDataHandlerImpl::Uninit() {
   is_valid_ = false;
 }
 
-bool HubDataHandlerImpl::AddDevice(const DeviceInfo &info) {
+bool HubDataHandlerImpl::AddDevice(const LivoxDeviceInfo &info) {
   if (is_valid_) {
     return false;
   }

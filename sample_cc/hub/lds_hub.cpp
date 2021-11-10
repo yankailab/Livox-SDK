@@ -223,7 +223,7 @@ void LdsHub::OnDeviceBroadcast(const BroadcastDeviceInfo *info) {
 }
 
 /** Callback function of changing of device state. */
-void LdsHub::OnDeviceInfoChange(const DeviceInfo *info, DeviceEvent type) {
+void LdsHub::OnDeviceInfoChange(const LivoxDeviceInfo *info, DeviceEvent type) {
   if (info == NULL) {
     return;
   }
@@ -546,7 +546,7 @@ bool LdsHub::FindInWhitelist(const char* broadcast_code) {
 
 /** Get and update LiDAR info */
 void LdsHub::UpdateHubLidarinfo(void) {
-  DeviceInfo *_lidars = (DeviceInfo *) malloc(sizeof(DeviceInfo) * kMaxLidarCount);
+  LivoxDeviceInfo *_lidars = (LivoxDeviceInfo *) malloc(sizeof(LivoxDeviceInfo) * kMaxLidarCount);
 
   uint8_t count = kMaxLidarCount;
   uint8_t status = GetConnectedDevices(_lidars, &count);

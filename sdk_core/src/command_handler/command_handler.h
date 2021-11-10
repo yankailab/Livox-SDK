@@ -43,7 +43,7 @@ class CommandHandler : public noncopyable {
   bool Init(std::weak_ptr<IOLoop> loop);
   void Uninit();
 
-  bool AddDevice(const DeviceInfo &info);
+  bool AddDevice(const LivoxDeviceInfo &info);
   void RemoveDevice(uint8_t handle);
 
   livox_status SendCommand(uint8_t handle,
@@ -80,7 +80,7 @@ class CommandHandlerImpl : public CommandChannelDelegate {
   CommandHandlerImpl(CommandHandler *handler) : handler_(handler) {}
   virtual ~CommandHandlerImpl() { Uninit(); }
   virtual void Uninit(){};
-  virtual bool AddDevice(const DeviceInfo &info) = 0;
+  virtual bool AddDevice(const LivoxDeviceInfo &info) = 0;
   virtual bool RemoveDevice(uint8_t handle) = 0;
 
   virtual livox_status SendCommand(uint8_t handle, const Command &command) = 0;

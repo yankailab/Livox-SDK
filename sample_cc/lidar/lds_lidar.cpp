@@ -214,7 +214,7 @@ void LdsLidar::OnDeviceBroadcast(const BroadcastDeviceInfo *info) {
 }
 
 /** Callback function of changing of device state. */
-void LdsLidar::OnDeviceChange(const DeviceInfo *info, DeviceEvent type) {
+void LdsLidar::OnDeviceChange(const LivoxDeviceInfo *info, DeviceEvent type) {
   if (info == nullptr) {
     return;
   }

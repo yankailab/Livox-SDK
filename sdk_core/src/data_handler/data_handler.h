@@ -45,7 +45,7 @@ class DataHandler : public noncopyable {
   bool Init();
   void Uninit();
 
-  bool AddDevice(const DeviceInfo &info);
+  bool AddDevice(const LivoxDeviceInfo &info);
   void RemoveDevice(uint8_t handle);
 
   bool AddDataListener(uint8_t handle, const DataCallback &cb, void *client_data);
@@ -65,7 +65,7 @@ class DataHandlerImpl : public IOLoop::IOLoopDelegate {
   virtual bool Init() = 0;
   virtual void Uninit(){};
 
-  virtual bool AddDevice(const DeviceInfo &info) = 0;
+  virtual bool AddDevice(const LivoxDeviceInfo &info) = 0;
   virtual void RemoveDevice(uint8_t handle) = 0;
   void OnDataCallback(uint8_t handle, void *data, uint16_t size) {
     if (handler_) {

@@ -39,14 +39,14 @@ class HubDataHandlerImpl : public DataHandlerImpl {
   bool Init();
   void Uninit();
 
-  bool AddDevice(const DeviceInfo &info);
+  bool AddDevice(const LivoxDeviceInfo &info);
   void RemoveDevice(uint8_t t);
   void OnData(socket_t sock, void *client_data);
 
  private:
   std::unique_ptr<IOThread> thread_;
   socket_t sock_ = -1;
-  DeviceInfo hub_info_;
+  LivoxDeviceInfo hub_info_;
   bool is_valid_;
   std::vector<char> buf_;
 };

@@ -85,7 +85,7 @@ void DeviceDiscovery::OnData(socket_t sock, void *) {
       if (connecting_devices_.find(sock) == connecting_devices_.end()) {
         continue;
       }
-      DeviceInfo info = std::get<1>(connecting_devices_[sock]);
+      LivoxDeviceInfo info = std::get<1>(connecting_devices_[sock]);
       if (!loop_.expired()) {
         loop_.lock()->RemoveDelegate(sock, this);
       }
@@ -112,7 +112,7 @@ void DeviceDiscovery::OnData(socket_t sock, void *) {
 void DeviceDiscovery::OnTimer(TimePoint now) {
   ConnectingDeviceMap::iterator ite = connecting_devices_.begin();
   while (ite != connecting_devices_.end()) {
-    tuple<TimePoint, DeviceInfo> &device_tuple = ite->second;
+    tuple<TimePoint, LivoxDeviceInfo> &device_tuple = ite->second;
     if (now - std::get<0>(device_tuple) > std::chrono::milliseconds(500)) {
       if (!loop_.expired()) {
         loop_.lock()->RemoveDelegate(ite->first, this);
@@ -156,7 +156,7 @@ void DeviceDiscovery::OnBroadcast(const CommPacket &packet,  struct sockaddr *ad
   
   device_manager().BroadcastDevices(&device_info);
  
-  DeviceInfo lidar_info;
+  LivoxDeviceInfo lidar_info;
   bool found = device_manager().FindDevice(broadcast_code, lidar_info);
 
   if (!found) {

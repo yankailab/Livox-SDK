@@ -159,7 +159,7 @@ void OnDeviceInformation(livox_status status, uint8_t handle, DeviceInformationR
   }
 }
 
-void LidarConnect(const DeviceInfo *info) {
+void LidarConnect(const LivoxDeviceInfo *info) {
   uint8_t handle = info->handle;
   QueryDeviceInformation(handle, OnDeviceInformation, NULL);
   if (devices[handle].device_state == kDeviceStateDisconnect) {
@@ -168,18 +168,18 @@ void LidarConnect(const DeviceInfo *info) {
   }
 }
 
-void LidarDisConnect(const DeviceInfo *info) {
+void LidarDisConnect(const LivoxDeviceInfo *info) {
   uint8_t handle = info->handle;
   devices[handle].device_state = kDeviceStateDisconnect;
 }
 
-void LidarStateChange(const DeviceInfo *info) {
+void LidarStateChange(const LivoxDeviceInfo *info) {
   uint8_t handle = info->handle;
   devices[handle].info = *info;
 }
 
 /** Callback function of changing of device state. */
-void OnDeviceInfoChange(const DeviceInfo *info, DeviceEvent type) {
+void OnDeviceInfoChange(const LivoxDeviceInfo *info, DeviceEvent type) {
   if (info == nullptr) {
     return;
   }

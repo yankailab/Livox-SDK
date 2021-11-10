@@ -83,10 +83,10 @@ bool IsMidDeviceIpResponse(const Command &command) {
 }
 
 void OnSubLidarDisconnect() {
-  device_manager().UpdateDevices(DeviceInfo(), kEventHubConnectionChange);
+  device_manager().UpdateDevices(LivoxDeviceInfo(), kEventHubConnectionChange);
 }
 
-bool CommandHandler::AddDevice(const DeviceInfo &info) {
+bool CommandHandler::AddDevice(const LivoxDeviceInfo &info) {
   if (impl_ == NULL) {
     DeviceMode mode = static_cast<DeviceMode>(device_manager().device_mode());
     if (mode == kDeviceModeHub) {

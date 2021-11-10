@@ -45,7 +45,7 @@ bool DataHandler::AddDataListener(uint8_t handle, const DataCallback &cb, void *
   return true;
 }
 
-bool DataHandler::AddDevice(const DeviceInfo &info) {
+bool DataHandler::AddDevice(const LivoxDeviceInfo &info) {
   if (impl_ == NULL) {
     DeviceMode mode = static_cast<DeviceMode>(device_manager().device_mode());
     if (mode == kDeviceModeHub) {

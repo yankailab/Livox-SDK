@@ -347,7 +347,7 @@ typedef struct {
   LidarFeature feature;                    /**< LiDAR feature. */
   StatusUnion status;                      /**< LiDAR work state status. */
   uint8_t firmware_version[4];             /**< Firmware version. */
-} DeviceInfo;
+} LivoxDeviceInfo;
 
 /** The information of broadcast device. */
 typedef struct {

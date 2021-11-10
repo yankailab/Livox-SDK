@@ -44,7 +44,7 @@ typedef enum {
 typedef struct {
   uint8_t handle;
   LidarConnectState connect_state;
-  DeviceInfo info;
+  LivoxDeviceInfo info;
 } LidarDevice;
 
 /**
@@ -69,7 +69,7 @@ class LdsLidar {
   LdsLidar& operator=(const LdsLidar&) = delete;
 
   static void OnDeviceBroadcast(const BroadcastDeviceInfo *info);
-  static void OnDeviceChange(const DeviceInfo *info, DeviceEvent type);
+  static void OnDeviceChange(const LivoxDeviceInfo *info, DeviceEvent type);
   static void LidarSetRmcSyncTimeCb(livox_status status, uint8_t handle,uint8_t response, void* client_data);
   static void DeviceInformationCb(livox_status status, uint8_t handle, \
                                   DeviceInformationResponse *ack, void *clent_data);

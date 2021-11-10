@@ -84,7 +84,7 @@ void SetBroadcastCallback(DeviceBroadcastCallback cb);
  * @param device  information of the connected device.
  * @param type    the update type that indicates connection/disconnection of the device or change of working state.
  */
-typedef void (*DeviceStateUpdateCallback)(const DeviceInfo *device, DeviceEvent type);
+typedef void (*DeviceStateUpdateCallback)(const LivoxDeviceInfo *device, DeviceEvent type);
 
 /**
  * @brief Add a callback for device connection or working state changing event.
@@ -125,7 +125,7 @@ livox_status AddLidarToConnect(const char *broadcast_code, uint8_t *handle);
  * @param size    number of devices connected.
  * @return kStatusSuccess on successful return, see \ref LivoxStatus for other error code.
  */
-livox_status GetConnectedDevices(DeviceInfo *devices, uint8_t *size);
+livox_status GetConnectedDevices(LivoxDeviceInfo *devices, uint8_t *size);
 
 /**
  * Function type of callback that queries device's information.

@@ -89,7 +89,7 @@ class DeviceDiscovery : public noncopyable, IOLoop::IOLoopDelegate {
   std::weak_ptr<IOLoop> loop_;
   std::unique_ptr<CommPort> comm_port_;
   std::mutex mutex_;
-  typedef std::map<socket_t, std::tuple<TimePoint, DeviceInfo> > ConnectingDeviceMap;
+  typedef std::map<socket_t, std::tuple<TimePoint, LivoxDeviceInfo> > ConnectingDeviceMap;
 
   ConnectingDeviceMap connecting_devices_;
 };

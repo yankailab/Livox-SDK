@@ -38,7 +38,7 @@ class LidarDataHandlerImpl : public DataHandlerImpl {
   ~LidarDataHandlerImpl() { Uninit(); }
   bool Init();
   void Uninit();
-  bool AddDevice(const DeviceInfo &info);
+  bool AddDevice(const LivoxDeviceInfo &info);
   void RemoveDevice(uint8_t handle);
   void OnData(socket_t sock, void *client_data);
 

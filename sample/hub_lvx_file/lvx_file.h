@@ -43,7 +43,7 @@ typedef enum {
 typedef struct {
   uint8_t handle;
   DeviceState device_state;
-  DeviceInfo info;
+  LivoxDeviceInfo info;
 } DeviceItem;
 
 #pragma pack(1)

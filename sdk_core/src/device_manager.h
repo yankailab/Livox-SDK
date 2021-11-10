@@ -64,7 +64,7 @@ class DeviceManager : public noncopyable {
    * @param device connected device information.
    * @return true if successfully added.
    */
-  bool AddDevice(const DeviceInfo &device);
+  bool AddDevice(const LivoxDeviceInfo &device);
 
   /**
    * When device is disconnected (not response to the heartbeat command), RemoveDevice is called.
@@ -75,12 +75,12 @@ class DeviceManager : public noncopyable {
   /**
    * Find device via handle.
    */
-  bool FindDevice(uint8_t handle, DeviceInfo &info);
+  bool FindDevice(uint8_t handle, LivoxDeviceInfo &info);
 
   /**
    * Find device via broadcast code.
    */
-  bool FindDevice(const std::string &broadcast_code, DeviceInfo &info);
+  bool FindDevice(const std::string &broadcast_code, LivoxDeviceInfo &info);
 
   /**
    * Check whether a device is connected.
@@ -89,7 +89,7 @@ class DeviceManager : public noncopyable {
    */
   bool IsDeviceConnected(uint8_t handle);
 
-  void SetDeviceConnectedCallback(const std::function<void(const DeviceInfo *, DeviceEvent)> &cb) {
+  void SetDeviceConnectedCallback(const std::function<void(const LivoxDeviceInfo *, DeviceEvent)> &cb) {
     connected_cb_ = cb;
   }
   void SetDeviceBroadcastCallback(const std::function<void(const BroadcastDeviceInfo *info)> &cb) {
@@ -99,9 +99,9 @@ class DeviceManager : public noncopyable {
   void QueryDeviceInformationCallback(livox_status status, uint8_t handle, DeviceInformationResponse *response);
   DeviceMode device_mode() { return device_mode_; }
   void BroadcastDevices(const BroadcastDeviceInfo *info);
-  void UpdateDevices(const DeviceInfo &device, DeviceEvent type);
+  void UpdateDevices(const LivoxDeviceInfo &device, DeviceEvent type);
   void UpdateDeviceState(uint8_t handle, const HeartbeatResponse &response);
-  void GetConnectedDevices(std::vector<DeviceInfo> &devices);
+  void GetConnectedDevices(std::vector<LivoxDeviceInfo> &devices);
   bool AddListeningDevice(const std::string &broadcast_code, DeviceMode mode, uint8_t &handle);
   bool IsLidarMid40(uint8_t handle);
   bool IsLidarMid70(uint8_t handle);
@@ -112,7 +112,7 @@ class DeviceManager : public noncopyable {
  private:
   typedef struct _DetailDeviceInfo {
     bool connected;
-    DeviceInfo info;
+    LivoxDeviceInfo info;
     _DetailDeviceInfo() { connected = false; }
     _DetailDeviceInfo(bool _connected,
                       const char *broadcast_code,
@@ -151,13 +151,13 @@ class DeviceManager : public noncopyable {
   typedef std::array<DetailDeviceInfo, kMaxConnectedDeviceNum> DeviceContainer;
   DeviceContainer devices_;
   DeviceMode device_mode_;
-  std::function<void(const DeviceInfo *, DeviceEvent)> connected_cb_;
+  std::function<void(const LivoxDeviceInfo *, DeviceEvent)> connected_cb_;
   std::function<void(const BroadcastDeviceInfo *info)> broadcast_cb_;
   std::mutex mutex_;
 };
 
 DeviceManager &device_manager();
-void DeviceFound(const DeviceInfo &data);
+void DeviceFound(const LivoxDeviceInfo &data);
 void DeviceRemove(uint8_t handle,DeviceEvent device_event);
 
 }  // namespace livox

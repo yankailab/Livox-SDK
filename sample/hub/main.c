@@ -41,7 +41,7 @@ typedef enum {
 typedef struct {
   uint8_t handle;
   DeviceState device_state;
-  DeviceInfo info;
+  LivoxDeviceInfo info;
 } DeviceItem;
 
 DeviceItem devices[kMaxLidarCount];
@@ -150,10 +150,10 @@ void HubDeviceDisconnect() {
   }
 }
 
-void HubDeviceConnect(const DeviceInfo *info) {
+void HubDeviceConnect(const LivoxDeviceInfo *info) {
   HubDeviceDisconnect();
   uint8_t handle = info->handle;
-  DeviceInfo *_devices = (DeviceInfo *) malloc(sizeof(DeviceInfo) * kMaxLidarCount);
+  LivoxDeviceInfo *_devices = (LivoxDeviceInfo *) malloc(sizeof(LivoxDeviceInfo) * kMaxLidarCount);
   uint8_t count = kMaxLidarCount;
   livox_status status = GetConnectedDevices(_devices, &count);
   if (status == kStatusSuccess) {
@@ -173,12 +173,12 @@ void HubDeviceConnect(const DeviceInfo *info) {
   HubQueryLidarInformation(OnHubLidarInfo, NULL);
 }
 
-void HubDeviceStateChange(const DeviceInfo *info) {
+void HubDeviceStateChange(const LivoxDeviceInfo *info) {
   devices[info->handle].info = *info;
 }
 
 /** Callback function of changing of device state. */
-void OnDeviceInfoChange(const DeviceInfo *info, DeviceEvent type) {
+void OnDeviceInfoChange(const LivoxDeviceInfo *info, DeviceEvent type) {
   if (info == NULL) {
     return;
   }

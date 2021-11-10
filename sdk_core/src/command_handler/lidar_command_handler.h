@@ -36,14 +36,14 @@ class LidarCommandHandlerImpl : public CommandHandlerImpl {
 
   void Uninit();
 
-  bool AddDevice(const DeviceInfo &info);
+  bool AddDevice(const LivoxDeviceInfo &info);
   bool RemoveDevice(uint8_t handle);
   livox_status SendCommand(uint8_t handle, const Command &command);
 
  private:
   typedef struct {
     std::shared_ptr<CommandChannel> channel;
-    DeviceInfo info;
+    LivoxDeviceInfo info;
   } DeviceItem;
   std::list<DeviceItem> devices_;
   std::weak_ptr<IOLoop> loop_;

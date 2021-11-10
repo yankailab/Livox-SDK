@@ -64,11 +64,11 @@ livox_status AddLidarToConnect(const char *broadcast_code, uint8_t *handle) {
   }
 }
 
-livox_status GetConnectedDevices(DeviceInfo *devices, uint8_t *size) {
+livox_status GetConnectedDevices(LivoxDeviceInfo *devices, uint8_t *size) {
   if (devices == NULL || size == NULL) {
     return kStatusFailure;
   }
-  vector<DeviceInfo> device;
+  vector<LivoxDeviceInfo> device;
   device_manager().GetConnectedDevices(device);
   uint16_t final_size = (*size >= device.size()) ? device.size() : *size;
   for (int i = 0; i < final_size; i++) {
