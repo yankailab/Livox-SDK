@@ -1,4 +1,4 @@
-# Install script for directory: /home/kai/dev/Livox-SDK/sample_cc/lidar_utc_sync
+# Install script for directory: /home/kai/dev/yankailab/Livox-SDK/sample_cc/lidar_utc_sync
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

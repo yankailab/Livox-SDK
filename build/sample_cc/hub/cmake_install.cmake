@@ -1,4 +1,4 @@
-# Install script for directory: /home/kai/dev/Livox-SDK/sample_cc/hub
+# Install script for directory: /home/kai/dev/yankailab/Livox-SDK/sample_cc/hub
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
